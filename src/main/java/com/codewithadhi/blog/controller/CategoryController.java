@@ -32,15 +32,16 @@ public class CategoryController {
 
     @DeleteMapping("/{categoryId}")
     public ResponseEntity<ApiResponse> deleteCategory(@PathVariable Long categoryId){
-        categoryRtabService.deleteCategoryById(categoryId);
-        return new ResponseEntity<ApiResponse>(
-                ApiResponse
-                        .builder()
-                        .message("deleted successfully")
-                        .success(Boolean.TRUE)
-                        .build(),
-                HttpStatus.OK
-        );
+        try {
+            categoryRtabService.deleteCategoryById(categoryId);
+            return new ResponseEntity<ApiResponse>(ApiResponse.builder().message("deleted successfully")
+                            .success(Boolean.TRUE)
+                            .build(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<ApiResponse>(ApiResponse.builder().message("Category deletion failed")
+                    .success(Boolean.FALSE)
+                    .build(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("/{categoryId}")

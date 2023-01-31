@@ -1,6 +1,6 @@
 package com.codewithadhi.blog.service.dto;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +12,7 @@ import lombok.Setter;
 public class CategoryRtabDTO {
 
     private Long id;
-    @NotNull
+    @NotBlank(message = "Category title cannot be null")
     @Size(max = 20)
     private String title;
     private String description;
